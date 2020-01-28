@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -35,6 +37,37 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        TextView t = (TextView) findViewById(R.id.welcomeDisplay);
+        t.setText("Welcome to Rock-Paper-Scissors!\n Please choose your weapon: ");
+
+    }
+
+    public void rockButtonClicked(View v) {
+
+        TextView computerWeapon = (TextView) findViewById(R.id.computerWeaponDisplay);
+        TextView playerWeapon = (TextView) findViewById(R.id.playerWeaponDisplay);
+        computerWeapon.setText("Computer's Weapon: ");
+        playerWeapon.setText("Player's Weapon: ");
+
+    }
+
+
+    public void paperButtonClicked(View v) {
+
+        TextView computerWeapon = (TextView) findViewById(R.id.computerWeaponDisplay);
+        TextView playerWeapon = (TextView) findViewById(R.id.playerWeaponDisplay);
+        computerWeapon.setText("Computer's Weapon: ");
+        playerWeapon.setText("Player's Weapon: ");
+
+    }
+
+    public void scissorsButtonClicked(View v) {
+
+        TextView computerWeapon = (TextView) findViewById(R.id.computerWeaponDisplay);
+        TextView playerWeapon = (TextView) findViewById(R.id.playerWeaponDisplay);
+        computerWeapon.setText("Computer's Weapon: ");
+        playerWeapon.setText("Player's Weapon: ");
     }
 
     @Override
