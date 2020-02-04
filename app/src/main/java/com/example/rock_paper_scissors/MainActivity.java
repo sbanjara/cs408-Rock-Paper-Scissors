@@ -13,17 +13,44 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private int computerCounter;
     private int playerCounter;
 
-    Weapon playerWeapon;
-    Weapon computerWeapon;
+    private String result;
+    private String displayCweapon;
+    private String displayPweapon;
+    private String score;
 
-    String result;
+    private Weapon playerWeapon;
+    private Weapon computerWeapon;
+
+    private TextView welcomeDisplay;
+    private TextView resultDisplay;
+    private TextView cWeapondisplay;
+    private TextView pWeapondisplay;
+    private TextView scoreDisplay;
+
+    public void updateView() {
+
+        displayCweapon = "Computer's Weapon: " + computerWeapon.toString();
+        displayPweapon = "Player's Weapon: " + playerWeapon.toString();
+        score = "Player: " + playerCounter + ", Computer: " + computerCounter;
+
+        welcomeDisplay.setText("Welcome to Rock-Paper-Scissors!\n Please choose your weapon: ");
+        scoreDisplay.setText(score);
+        cWeapondisplay.setText(displayCweapon);
+        pWeapondisplay.setText(displayPweapon);
+        resultDisplay.setText(result);
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,46 +72,45 @@ public class MainActivity extends AppCompatActivity {
         computerCounter = 0;
         playerCounter = 0;
 
-        playerWeapon = Weapon.ROCK;
-        computerWeapon = Weapon.ROCK;
+        score = "";
+        result = "";
+        displayCweapon = "";
+        displayPweapon = "";
 
-        TextView t = (TextView) findViewById(R.id.welcomeDisplay);
-        t.setText("Welcome to Rock-Paper-Scissors!\n Please choose your weapon: ");
+        playerWeapon = Weapon.EMPTY;
+        computerWeapon = Weapon.EMPTY;
+
+        welcomeDisplay = (TextView) findViewById(R.id.welcomeDisplay);
+        scoreDisplay = (TextView) findViewById(R.id.scoreDisplay);
+        resultDisplay = (TextView) findViewById(R.id.winningMessage);
+        cWeapondisplay = (TextView) findViewById(R.id.computerWeaponDisplay);
+        pWeapondisplay = (TextView) findViewById(R.id.playerWeaponDisplay);
+
+        updateView();
 
     }
+
 
     public void rockButtonClicked(View v) {
 
         playerWeapon = Weapon.ROCK;
-        TextView resultDisplay = (TextView) findViewById(R.id.winningMessage);
-        TextView cWeapondisplay = (TextView) findViewById(R.id.computerWeaponDisplay);
-        TextView pWeapondisplay = (TextView) findViewById(R.id.playerWeaponDisplay);
-        TextView scoreDisplay = (TextView) findViewById(R.id.scoreDisplay);
+        computerWeapon = Weapon.getRandomWeapon();
 
-        Weapon w = computerWeapon.getRandomWeapon();
-
-        if( w.equals(playerWeapon) ) {
+        if( computerWeapon.equals(playerWeapon) ) {
             result = "Its draw...";
         }
 
-        else if( w.equals(Weapon.PAPER) ) {
+        else if( computerWeapon.equals(Weapon.PAPER) ) {
             result = "Computer Wins...PAPER wraps the ROCK";
             computerCounter++;
         }
 
-        else if( w.equals(Weapon.SCISSORS) ) {
+        else if( computerWeapon.equals(Weapon.SCISSORS) ) {
             result = "Player wins....ROCK blunts the SCISSORS";
             playerCounter++;
         }
 
-        String c = "Computer's Weapon: " + w.toString();
-        String p = "Player's Weapon: " + playerWeapon.toString();
-        String score = "Player: " + playerCounter + ", Computer: " + computerCounter;
-
-        scoreDisplay.setText(score);
-        cWeapondisplay.setText(c);
-        pWeapondisplay.setText(p);
-        resultDisplay.setText(result);
+        updateView();
 
     }
 
@@ -92,68 +118,47 @@ public class MainActivity extends AppCompatActivity {
     public void paperButtonClicked(View v) {
 
         playerWeapon = Weapon.PAPER;
-        Weapon w = computerWeapon.getRandomWeapon();
-        TextView resultDisplay = (TextView) findViewById(R.id.winningMessage);
-        TextView cWeapondisplay = (TextView) findViewById(R.id.computerWeaponDisplay);
-        TextView pWeapondisplay = (TextView) findViewById(R.id.playerWeaponDisplay);
-        TextView scoreDisplay = (TextView) findViewById(R.id.scoreDisplay);
+        computerWeapon = Weapon.getRandomWeapon();
 
-        if( w.equals(playerWeapon) ) {
+        if( computerWeapon.equals(playerWeapon) ) {
             result = "Its draw...";
         }
 
-        else if( w.equals(Weapon.ROCK) ) {
+        else if( computerWeapon.equals(Weapon.ROCK) ) {
             result = "Player Wins...PAPER wraps the ROCK";
             playerCounter++;
         }
 
-        else if( w.equals(Weapon.SCISSORS) ) {
+        else if( computerWeapon.equals(Weapon.SCISSORS) ) {
             result = "Computer wins....SCISSORS cut the PAPER";
             computerCounter++;
         }
 
-        String c = "Computer's Weapon: " + w.toString();
-        String p = "Player's Weapon: " + playerWeapon.toString();
-        String score = "Player: " + playerCounter + ", Computer: " + computerCounter;
-
-        scoreDisplay.setText(score);
-        cWeapondisplay.setText(c);
-        pWeapondisplay.setText(p);
-        resultDisplay.setText(result);
+        updateView();
 
     }
+
 
     public void scissorsButtonClicked(View v) {
 
         playerWeapon = Weapon.SCISSORS;
-        Weapon w = computerWeapon.getRandomWeapon();
-        TextView resultDisplay = (TextView) findViewById(R.id.winningMessage);
-        TextView cWeapondisplay = (TextView) findViewById(R.id.computerWeaponDisplay);
-        TextView pWeapondisplay = (TextView) findViewById(R.id.playerWeaponDisplay);
-        TextView scoreDisplay = (TextView) findViewById(R.id.scoreDisplay);
+        computerWeapon = Weapon.getRandomWeapon();
 
-        if( w.equals(playerWeapon) ) {
+        if( computerWeapon.equals(playerWeapon) ) {
             result = "Its draw...";
         }
 
-        else if( w.equals(Weapon.ROCK) ) {
+        else if( computerWeapon.equals(Weapon.ROCK) ) {
             result = "Computer Wins...ROCK blunts the SCISSORS";
             computerCounter++;
         }
 
-        else if( w.equals(Weapon.PAPER) ) {
+        else if( computerWeapon.equals(Weapon.PAPER) ) {
             result = "Player wins....SCISSORS cut the PAPER";
             playerCounter++;
         }
 
-        String c = "Computer's Weapon: " + w.toString();
-        String p = "Player's Weapon: " + playerWeapon.toString();
-        String score = "Player: " + playerCounter + ", Computer: " + computerCounter;
-
-        scoreDisplay.setText(score);
-        cWeapondisplay.setText(c);
-        pWeapondisplay.setText(p);
-        resultDisplay.setText(result);
+        updateView();
 
     }
 
@@ -181,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
     public enum Weapon {
 
+        EMPTY(" "),
         ROCK("Rock"),
         PAPER("Paper"),
         SCISSORS("Scissors");
@@ -191,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public String toString() { return message; }
 
-        public Weapon getRandomWeapon() {
+        public static Weapon getRandomWeapon() {
 
             Weapon[] weapons = Weapon.values();
             Random r = new Random();
